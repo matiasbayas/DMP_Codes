@@ -13,20 +13,16 @@ a, b = 200, 100
 q = BetaBinomial(N, a, b).pdf()
 
 # Plot of pdf of wage outcomes:
-#fig, ax = plt.subplots()
-#ax.plot(w, q, '-o')
-#ax.set_xlabel('Wages')
-#ax.set_ylabel('Probabilities')
-#plt.show()
+fig, ax = plt.subplots()
+ax.plot(w, q, '-o')
+ax.set_xlabel('Wages')
+ax.set_ylabel('Probabilities')
+ax.set_title('PMF of Wages')
+plt.show()
 
-# Other parameters:
-rho = 0.99
-c = 25
-maxit = 200
-tol = 1e-7
 
 # Value Function Iteration:
-def findv(w, rho, c, q):
+def findv(w, rho, c, q, maxit = 200, tol = 1e-7):
 
     # Initial guess for value function:
     v0 = w/(1-rho)
@@ -47,11 +43,11 @@ def res_wage(v, rho, c, q):
 
 
 # Comparative Statics: (change beta and c)
-grid_size = 25
+grid_size = 50
 R = np.empty((grid_size, grid_size))
 
-cs = np.linspace(10, 30, grid_size)
-rhos = np.linspace(0.9, 0.99, grid_size)
+cs = np.linspace(5, 30, grid_size)
+rhos = np.linspace(0.8, 0.98, grid_size)
 
 for i, c in enumerate(cs):
     for j, b in enumerate(rhos):
